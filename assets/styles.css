@@ -21,6 +21,11 @@ body {
   cursor: pointer;
 }
 
+.buttons {
+  display: inline-block;
+  width: 100%;
+}
+
 .cart {
   margin: 25px 100px;
   float: right;
@@ -38,6 +43,10 @@ body {
   margin-top: 8px;
   border: 2px solid #d8d8d8;
   border-radius: 50%;
+}
+
+.color-circle-group {
+  display: flex;
 }
 
 
@@ -100,6 +109,7 @@ p {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  width: 100%;
 }
 
 .product-container {
