@@ -156,6 +156,11 @@ p {
   margin: 30px auto;
 }
 
+.radio-answers {
+  display: flex;
+  justify-content: flex-start;
+}
+
 select {
   height: 40px;
   font-size: 20px;

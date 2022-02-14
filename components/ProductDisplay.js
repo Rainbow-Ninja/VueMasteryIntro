@@ -9,48 +9,50 @@ app.component('product-display', {
         /*html*/
     ` <div class="product-display">
         <div class="product-container">
-        <div class="product-image">
-            <img :src="image" :class="{ 'out-of-stock-img': !inStock }">
-        </div>
-        <div class="product-info">
-            <h1>{{ title }}</h1>
-            <a :href="url">Click here for more info on Piranhas</a>
-            <p v-if="inStock > 10">In stock</p>
-            <p v-else-if="inStock <=10 && inStock > 0">Almost sold out!</p>
-            <p v-else>Out of Stock</p>
-            <p>Shipping: {{ shipping }}</p>
-            <p v-if="onSale">{{ isOnSale }}</p>
-            <product-details :details="details"></product-details>
-            <div class="color-circle-group">
-            <div
-                v-for="(variant, index) in variants"
-                :key="variant.id"
-                @mouseover="updateVariant(index)"
-                class="color-circle"
-                :style="{ backgroundColor: variant.color }">
+            <div class="product-image">
+                <img :src="image" :class="{ 'out-of-stock-img': !inStock }">
             </div>
-            </div>
-            <ul>
-            <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
-            </ul>
-            <div class="buttons">
-            <button 
-                class="button"
-                :class="{ disabledButton: !inStock }"
-                :disabled="!inStock" 
-                @click="addToCart">
-                Add to Cart
-            </button>
-            <button 
-                class="button" 
-                @click="removeFromCart"
-                :class="{ disabledButton: !inStock }"
-                :disabled="!inStock" >
-                Remove Item
-            </button>
+            <div class="product-info">
+                <h1>{{ title }}</h1>
+                <a :href="url">Click here for more info on Piranhas</a>
+                <p v-if="inStock > 10">In stock</p>
+                <p v-else-if="inStock <=10 && inStock > 0">Almost sold out!</p>
+                <p v-else>Out of Stock</p>
+                <p>Shipping: {{ shipping }}</p>
+                <p v-if="onSale">{{ isOnSale }}</p>
+                <product-details :details="details"></product-details>
+                <div class="color-circle-group">
+                    <div
+                        v-for="(variant, index) in variants"
+                        :key="variant.id"
+                        @mouseover="updateVariant(index)"
+                        class="color-circle"
+                        :style="{ backgroundColor: variant.color }">
+                    </div>
+                </div>
+                <ul>
+                    <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
+                </ul>
+                <div class="buttons">
+                    <button 
+                        class="button"
+                        :class="{ disabledButton: !inStock }"
+                        :disabled="!inStock" 
+                        @click="addToCart">
+                        Add to Cart
+                    </button>
+                    <button 
+                        class="button" 
+                        @click="removeFromCart"
+                        :class="{ disabledButton: !inStock }"
+                        :disabled="!inStock" >
+                        Remove Item
+                    </button>
+                </div>
             </div>
         </div>
-        </div>
+        <review-list :reviews="reviews" v-if="reviews.length"></review-list>
+        <review-form @review-submitted="addReview"></review-form>
     </div>`,
 
     data() {
@@ -70,6 +72,7 @@ app.component('product-display', {
             ],
             sizes: ['big fishy', 'medium fishy', 'itty bitty fishy'],
             brand: "Jo's",
+            reviews: []
         }
     },
     methods: {
@@ -81,6 +84,9 @@ app.component('product-display', {
         },
         updateVariant(index) {
             this.selectedVariant = index;
+        },
+        addReview(review) {
+            this.reviews.push(review)
         }
     },
     computed: {
